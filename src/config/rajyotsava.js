@@ -15,8 +15,8 @@ export const rajyotsava = {
   enabled: true,
   startsOn: '2026-10-29',
   endsOn: '2026-11-30',
-  // How strong the flag behind the page is, in percent (6 to 8 keeps every text easy to read)
-  flagOpacity: 7,
+  // How strong the flag behind the page is, in percent (12 for the Instagram video, 29 Oct 2026; 6 to 8 is the quiet everyday strength)
+  flagOpacity: 12,
 }
 
 // Where the Offer Zone button, the banner and the popup go: the menu
