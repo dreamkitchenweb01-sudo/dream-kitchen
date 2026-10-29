@@ -28,7 +28,8 @@ import TextField from '../ui/TextField'
 import Button from '../ui/Button'
 import ProductPhoto from './ProductPhoto'
 import { useAddedToast } from './ShopSheets'
-import { AlertIcon, ChevronDownIcon, CloseIcon, ImageIcon } from '../icons'
+import { useRajyotsava } from '../../config/rajyotsava'
+import { AlertIcon, ChevronDownIcon, CloseIcon, ImageIcon, TagIcon } from '../icons'
 import 'virtual:dk-strings/sheet'
 
 const ORDER = ['size', 'name', 'drawingText', 'drawingRef']
@@ -48,6 +49,8 @@ export function ProductSheet({ open, product, line, focus, onClose }) {
   const set = (patch) => setSelection((s) => ({ ...s, ...patch }))
 
   const forSale = isForSale(product)
+  // Kannada Rajyotsava's badge, in the same red as on the card (display only)
+  const festive = Boolean(useRajyotsava())
   const price = forSale ? unitPrice(product, selection) : null
   const errors = forSale ? selectionErrors(product, selection) : {}
   delete errors.product
@@ -99,6 +102,14 @@ export function ProductSheet({ open, product, line, focus, onClose }) {
       <div className="flex gap-4">
         <ProductPhoto slug={product.slug} art={product.art} eager rounded="rounded-card" sizes="128px" className="h-28 w-28 shrink-0 sm:h-32 sm:w-32" />
         <div className="min-w-0 flex-1">
+          {festive && (
+            <p className="mb-1">
+              <span className="inline-flex items-center gap-1 rounded-full border border-[#f6c512] bg-[#b3261e] px-2.5 py-0.5 text-[0.875rem] font-bold text-cream" data-dk-sheet-offer>
+                <TagIcon className="h-3.5 w-3.5 text-[#f6c512]" />
+                {t('banner.rajBadge')}
+              </span>
+            </p>
+          )}
           {forSale ? (
             <p className="t-price">
               {formatINR(price ?? 0)}

@@ -65,9 +65,10 @@ export default function Cart() {
             {t('cart.courierHow', { smallKa: formatINR(r.small.karnataka), smallOut: formatINR(r.small.outside), largeKa: formatINR(r.large.karnataka), largeOut: formatINR(r.large.outside), xlKa: formatINR(r.xl.karnataka), xlOut: formatINR(r.xl.outside) })}
           </p>
           <p className="t-small mt-2 text-brown-2">{t('cart.dispatch', { days: settings.leadTimes.standardBusinessDays })}</p>
-          {remoteLoaded && !canOrder && (
+          {/* "Online ordering opens soon" is not shown (29 Oct 2026); the WhatsApp button below stays */}
+          {remoteLoaded && !canOrder && !settings.store.open && (
             <Notice icon={InfoIcon} className="mt-4">
-              <p>{settings.store.open ? t('checkout.paymentsSoonText') : t('errors.storeClosed', { phone: site.phone.display })}</p>
+              <p>{t('errors.storeClosed', { phone: site.phone.display })}</p>
             </Notice>
           )}
           {blocked && (

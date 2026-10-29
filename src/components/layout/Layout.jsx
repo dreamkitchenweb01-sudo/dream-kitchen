@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { useI18n } from '../../i18n/I18nProvider'
 import { prefetchOrderPath } from '../../routes'
 import ScrollToTop from '../ScrollToTop'
@@ -9,6 +9,9 @@ import LanguageError from './LanguageError'
 import Footer from './Footer'
 import TabBar from './TabBar'
 import CartAnnouncer from './CartAnnouncer'
+import SiteBackground from './SiteBackground'
+import RajyotsavaGate from '../festival/RajyotsavaGate'
+import RajyotsavaBanner from '../festival/RajyotsavaBanner'
 
 // Tells the inline loading screen, Hema's settings fetch and the QA scripts that the first page
 // has painted. It sits inside the page's Suspense boundary, so it runs only once the page's own
@@ -23,6 +26,12 @@ function FirstPaint() {
   return null
 }
 
+// Kannada Rajyotsava's banner at the very top of Home (src/config/rajyotsava.js)
+function PageOffers() {
+  const { pathname } = useLocation()
+  return pathname === '/' ? <RajyotsavaBanner /> : null
+}
+
 // Holds the space while a page's chunk downloads, so the footer never jumps
 const PageLoading = () => <div aria-busy="true" className="min-h-dvh" />
 
@@ -30,7 +39,8 @@ const PageLoading = () => <div aria-busy="true" className="min-h-dvh" />
 export default function Layout() {
   const { t } = useI18n()
   return (
-    <div id="dk-app" className="flex min-h-dvh flex-col">
+    <div id="dk-app" className="isolate flex min-h-dvh flex-col">
+      <SiteBackground />
       <ScrollToTop />
       <a
         href="#main"
@@ -42,6 +52,7 @@ export default function Layout() {
       <Banner />
       <LanguageError />
       <main id="main" tabIndex={-1} className="flex-1 outline-none">
+        <PageOffers />
         <Suspense fallback={<PageLoading />}>
           <Outlet />
           <FirstPaint />
@@ -50,6 +61,7 @@ export default function Layout() {
       <Footer />
       <TabBar />
       <CartAnnouncer />
+      <RajyotsavaGate />
     </div>
   )
 }

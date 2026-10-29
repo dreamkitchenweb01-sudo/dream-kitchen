@@ -1,11 +1,44 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useI18n } from '../../i18n/I18nProvider'
 import { useCart } from '../../context/CartProvider'
+import { OFFER_ZONE_HREF, useRajyotsava } from '../../config/rajyotsava'
 import Wordmark from '../brand/Wordmark'
 import LanguageToggle from '../ui/LanguageToggle'
 import { CartIcon } from '../icons'
 import { MAIN_NAV } from './nav'
 import CartCount, { CartItemsSr } from './CartCount'
+
+/**
+ * "Offer Zone 🎁" while Kannada Rajyotsava is on (reused from the new site): a small black-and-gold
+ * button with a soft Karnataka-colours glow, beside the language and cart buttons (two short lines
+ * on phones, so it fits at 360px). Opens the menu.
+ */
+function OfferZoneButton() {
+  const { t } = useI18n()
+  const raj = useRajyotsava()
+  if (!raj) return null
+  return (
+    <Link
+      to={OFFER_ZONE_HREF}
+      className="dk-zone relative inline-flex min-h-12 shrink-0 items-center gap-1 rounded-control border border-gold/80 bg-ink px-1.5 text-gold-light sm:gap-1.5 sm:px-3"
+      aria-label={t('banner.zoneLabel')}
+      data-dk-zone
+    >
+      <span aria-hidden="true" className="text-[1.125rem] leading-none sm:text-xl">
+        🎁
+      </span>
+      <span aria-hidden="true" className="flex flex-col text-[0.875rem] leading-[1.1] font-bold sm:block sm:text-base sm:leading-tight">
+        {t('banner.zone')
+          .split(' ')
+          .map((w, i) => (
+            <span key={i} className="sm:after:content-['_'] sm:last:after:content-none">
+              {w}
+            </span>
+          ))}
+      </span>
+    </Link>
+  )
+}
 
 // Sticky black header with a fine gold rule: logo, (wide screens) the five main links,
 // language and the cart with its count.
@@ -39,6 +72,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-2 lg:ml-3">
+          <OfferZoneButton />
           <LanguageToggle variant="compact" />
           <Link
             to="/cart"

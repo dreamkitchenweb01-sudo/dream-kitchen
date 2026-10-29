@@ -55,7 +55,18 @@
   },
   "banner": {
     "closed": "Orders are paused for now.",
-    "label": "Notice from Dream Kitchen"
+    "label": "Notice from Dream Kitchen",
+    "zone": "Offer Zone",
+    "zoneLabel": "Offer Zone: Rajyotsava specials on the menu",
+    "rajHello": "Happy Kannada Rajyotsava",
+    "rajSpecial": "Rajyotsava Special",
+    "rajBadge": "Rajyotsava Special",
+    "rajLine": "Handmade treats for the festival",
+    "rajTill": "Till {date}",
+    "rajOrder": "Order on WhatsApp",
+    "rajGo": "Go to Offer Zone",
+    "rajLater": "Maybe later",
+    "rajClose": "Close"
   },
   "units": {
     "g": "{n} g",

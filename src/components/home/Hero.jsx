@@ -4,6 +4,8 @@ import Wordmark from '../brand/Wordmark'
 import Symbol from '../brand/Symbol'
 import Button from '../ui/Button'
 import { WhatsAppIcon } from '../icons'
+import ThemeLayer from '../background/ThemeLayer'
+import { flagBackground, useRajyotsava } from '../../config/rajyotsava'
 import 'virtual:dk-strings/home'
 
 // The two outline buttons: compact side by side on phones (48px tall), full size on desktop
@@ -18,12 +20,18 @@ const SIDE = 'flex-auto whitespace-nowrap max-md:min-h-12 max-md:gap-2 max-md:px
  */
 export default function Hero() {
   const { t } = useI18n()
+  // Behind the hero: the faint logo, or the Karnataka flag while Kannada Rajyotsava is on
+  const raj = useRajyotsava()
   return (
     <section className="on-dark relative isolate overflow-hidden bg-ink text-cream">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <div className="dk-drift absolute top-[22%] left-[40%] w-[140vw] max-w-[900px] text-gold opacity-[0.045] md:top-[4%] md:left-[54%] md:w-[80vw]">
-          <Symbol flat className="block h-auto w-full" />
-        </div>
+        {raj ? (
+          <ThemeLayer bg={flagBackground(raj)} dark className="absolute inset-0 h-full w-full" />
+        ) : (
+          <div className="dk-drift absolute top-[22%] left-[40%] w-[140vw] max-w-[900px] text-gold opacity-[0.045] md:top-[4%] md:left-[54%] md:w-[80vw]">
+            <Symbol flat className="block h-auto w-full" />
+          </div>
+        )}
       </div>
       <div className="dk-container flex flex-col items-center pt-3 pb-4 text-center md:pt-10 md:pb-12">
         <Wordmark variant="stacked" as="h1" handoff />
